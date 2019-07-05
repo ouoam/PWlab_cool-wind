@@ -2,15 +2,18 @@
 
 #include "Nextion.h"
 
-NexNumber n0 = NexNumber(0, 8, "n0");
-NexNumber n1 = NexNumber(0, 9, "n1");
+NexVariable valTime = NexVariable(0, 9, "valTime", "main");
+NexVariable valTemp = NexVariable(0, 10, "valTemp", "main");
+NexVariable valStatus = NexVariable(0, 13, "valStatus", "main");
+NexVariable valETA = NexVariable(0, 14, "valETA", "main");
+NexVariable valButton = NexVariable(0, 15, "valButton", "main");
+
+NexText textDebug = NexText(0, 18, "textDebug");
 
 class Display
 {
 private:
-    uint8_t page = 0;
-    float temp = 0;
-    int32_t time = 0;
+    int8_t lastPreTemp = 0;
 
 public:
     Display(/* args */)
@@ -20,9 +23,6 @@ public:
 
     void setup()
     {
-        pinMode(11, INPUT_PULLUP);
-        pinMode(12, INPUT_PULLUP);
-
         nexInit();
     }
 
@@ -30,26 +30,21 @@ public:
     {
     }
 
-    void setPage(uint8_t page)
+    int8_t getPreTemp()
     {
-        this->page = page;
+        uint32_t number;
+        if (valTemp.getValue(&number))
+        {
+            lastPreTemp = number;
+        }
+        return lastPreTemp;
     }
 
-    uint8_t getPage()
+    int8_t getTime()
     {
-        return page;
-    }
-
-    void setTemp(float temp)
-    {
-        this->temp = temp;
-
-        n0.setValue(temp);
-    }
-
-    void setTime(int32_t time)
-    {
-        this->time = time;
+        uint32_t number;
+        valTime.getValue(&number);
+        return number;
     }
 
     void setETAtime(int32_t time)
@@ -58,19 +53,28 @@ public:
             time = 999;
         else if (time < 0)
             time = 0;
-        n1.setValue(time);
+        valETA.setValue(time);
     }
 
-    String printStatus()
+    uint8_t getStatus()
     {
-        String out = "";
-        out += "Page:";
-        out += page;
-        out += " Temp:";
-        out += temp;
-        out += " ETA:";
-        out += time;
+        uint32_t number;
+        valStatus.getValue(&number);
+        return number;
+    }
 
-        return out;
+    void setStatus(uint8_t status)
+    {
+        valStatus.setValue(status);
+    }
+
+    void setButton(uint8_t button)
+    {
+        valButton.setValue(button);
+    }
+
+    void setDebug(String str)
+    {
+        textDebug.setText(str.c_str());
     }
 };
