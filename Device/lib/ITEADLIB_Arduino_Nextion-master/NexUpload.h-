@@ -32,7 +32,6 @@
 class NexUpload
 {
 public: /* methods */
-
     /**
      * Constructor. 
      * 
@@ -40,8 +39,8 @@ public: /* methods */
      * @param SD_chip_select - sd chip select pin.
      * @param download_baudrate - set download baudrate.
      */
-    NexUpload(const char *file_name,const uint8_t SD_chip_select,uint32_t download_baudrate);
-    
+    NexUpload(const char *file_name, const uint8_t SD_chip_select, uint32_t download_baudrate);
+
     /**
      * Constructor. 
      * 
@@ -49,14 +48,14 @@ public: /* methods */
      * @param SD_chip_select - sd chip select pin.
      * @param download_baudrate - set download baudrate.
      */
-    NexUpload(const String file_Name,const uint8_t SD_chip_select,uint32_t download_baudrate); 
-    
+    NexUpload(const String file_Name, const uint8_t SD_chip_select, uint32_t download_baudrate);
+
     /**
      * destructor. 
      * 
      */
-    ~NexUpload(){}
-    
+    ~NexUpload() {}
+
     /*
      * start download.
      *
@@ -65,7 +64,6 @@ public: /* methods */
     void upload();
 
 private: /* methods */
-
     /*
      * get communicate baudrate. 
      * 
@@ -73,7 +71,7 @@ private: /* methods */
      *
      */
     uint16_t _getBaudrate(void);
-    
+
     /*
      * check tft file.
      *
@@ -98,14 +96,14 @@ private: /* methods */
      * @return true if success, false for failure. 
      */
     bool _setDownloadBaudrate(uint32_t baudrate);
-    
+
     /**
      * start dowload tft file to nextion. 
      * 
      * @return none. 
      */
     bool _downloadTftFile(void);
-    
+
     /*
      * Send command to Nextion.
      *
@@ -113,7 +111,7 @@ private: /* methods */
      *
      * @return none.
      */
-    void sendCommand(const char* cmd);
+    void sendCommand(const char *cmd);
 
     /*
      * Receive string data. 
@@ -124,15 +122,15 @@ private: /* methods */
      *
      * @return the length of string buffer.
      *
-     */   
-    uint16_t recvRetString(String &string, uint32_t timeout = 100,bool recv_flag = false);
-    
-private: /* data */ 
-    uint32_t _baudrate; /*nextion serail baudrate*/
-    const char *_file_name; /*nextion tft file name*/
-    File _myFile; /*nextion ftf file*/
-    uint32_t _undownloadByte; /*undownload byte of tft file*/
-    uint8_t _SD_chip_select; /*sd chip select pin*/
+     */
+    uint16_t recvRetString(String &string, uint32_t timeout = 100, bool recv_flag = false);
+
+private:                         /* data */
+    uint32_t _baudrate;          /*nextion serail baudrate*/
+    const char *_file_name;      /*nextion tft file name*/
+    File _myFile;                /*nextion ftf file*/
+    uint32_t _undownloadByte;    /*undownload byte of tft file*/
+    uint8_t _SD_chip_select;     /*sd chip select pin*/
     uint32_t _download_baudrate; /*download baudrate*/
 };
 /**

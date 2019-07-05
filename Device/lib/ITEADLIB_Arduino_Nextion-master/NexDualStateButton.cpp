@@ -16,7 +16,7 @@
 #include "NexDualStateButton.h"
 
 NexDSButton::NexDSButton(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+    : NexTouch(pid, cid, name)
 {
 }
 
@@ -33,7 +33,7 @@ bool NexDSButton::setValue(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".val=";
@@ -50,7 +50,7 @@ uint16_t NexDSButton::getText(char *buffer, uint16_t len)
     cmd += getObjName();
     cmd += ".txt";
     sendCommand(cmd.c_str());
-    return recvRetString(buffer,len);
+    return recvRetString(buffer, len);
 }
 
 bool NexDSButton::setText(const char *buffer)
@@ -61,7 +61,7 @@ bool NexDSButton::setText(const char *buffer)
     cmd += buffer;
     cmd += "\"";
     sendCommand(cmd.c_str());
-    return recvRetCommandFinished();    
+    return recvRetCommandFinished();
 }
 
 uint32_t NexDSButton::Get_state0_color_bco0(uint32_t *number)
@@ -78,14 +78,14 @@ bool NexDSButton::Set_state0_color_bco0(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".bco0=";
     cmd += buf;
     sendCommand(cmd.c_str());
 
-    cmd="";
+    cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
@@ -106,14 +106,14 @@ bool NexDSButton::Set_state1_color_bco1(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".bco1=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
-    cmd="";
+
+    cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
@@ -134,13 +134,13 @@ bool NexDSButton::Set_font_color_pco(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".pco=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -162,13 +162,13 @@ bool NexDSButton::Set_place_xcen(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".xcen=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -190,13 +190,13 @@ bool NexDSButton::Set_place_ycen(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".ycen=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -218,7 +218,7 @@ bool NexDSButton::setFont(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".font=";
@@ -246,13 +246,13 @@ bool NexDSButton::Set_state0_crop_picc0(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".picc0=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -274,13 +274,13 @@ bool NexDSButton::Set_state1_crop_picc1(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".picc1=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -302,13 +302,13 @@ bool NexDSButton::Set_state0_image_pic0(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".pic0=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -330,18 +330,16 @@ bool NexDSButton::Set_state1_image_pic1(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".pic1=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
 }
-
-

@@ -16,7 +16,7 @@
 #include "NexCrop.h"
 
 NexCrop::NexCrop(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+    : NexTouch(pid, cid, name)
 {
 }
 
@@ -33,7 +33,7 @@ bool NexCrop::Set_background_crop_picc(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".picc=";
@@ -56,7 +56,7 @@ bool NexCrop::setPic(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".picc=";
@@ -65,4 +65,3 @@ bool NexCrop::setPic(uint32_t number)
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
 }
-

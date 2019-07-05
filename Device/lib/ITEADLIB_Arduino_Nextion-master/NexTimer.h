@@ -31,10 +31,9 @@
  * must be greater than 50
  * 
  */
-class NexTimer: public NexTouch
+class NexTimer : public NexTouch
 {
 public: /* methods */
-
     /**
      * @copydoc NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name);
      */
@@ -66,7 +65,7 @@ public: /* methods */
      * @retval true - success. 
      * @retval false - failed. 
      */
-    bool getCycle(uint32_t *number); 
+    bool getCycle(uint32_t *number);
 
     /**
      * Set the value of timer cycle val.
@@ -78,7 +77,7 @@ public: /* methods */
      *
      * @warning  the cycle value must be greater than 50.
      */
-    bool setCycle(uint32_t number);   
+    bool setCycle(uint32_t number);
 
     /**
      * contorl timer enable.
@@ -94,8 +93,8 @@ public: /* methods */
      * @retval true - success. 
      * @retval false - failed. 
      */
-    bool disable(void); 
-    
+    bool disable(void);
+
     /**
      * Get tim attribute of component
      *
@@ -115,6 +114,5 @@ public: /* methods */
 /**
  * @}
  */
-
 
 #endif /* #ifndef __NEXTIMER_H__ */

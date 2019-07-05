@@ -27,10 +27,9 @@
 /**
  * NexCrop component. 
  */
-class NexCrop: public NexTouch
+class NexCrop : public NexTouch
 {
 public: /* methods */
-
     /**
      * @copydoc NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name);
      */
@@ -45,7 +44,7 @@ public: /* methods */
      * @retval false - failed. 
      */
     bool Get_background_crop_picc(uint32_t *number);
-    
+
     /**
      * Set the number of picture. 
      *
@@ -55,8 +54,8 @@ public: /* methods */
      * @retval false - failed. 
      */
     bool Set_background_crop_picc(uint32_t number);
-	
-	/**
+
+    /**
      * Get the number of picture. 
      *
      * @param number - an output parameter to save the number of picture. 
@@ -65,7 +64,7 @@ public: /* methods */
      * @retval false - failed. 
      */
     bool getPic(uint32_t *number);
-    
+
     /**
      * Set the number of picture. 
      *

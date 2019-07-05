@@ -16,7 +16,7 @@
 #include "NexTimer.h"
 
 NexTimer::NexTimer(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+    : NexTouch(pid, cid, name)
 {
 }
 
@@ -55,7 +55,6 @@ bool NexTimer::setCycle(uint32_t number)
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
 }
-
 
 bool NexTimer::enable(void)
 {
@@ -105,11 +104,10 @@ bool NexTimer::Set_cycle_tim(uint32_t number)
     cmd += ".tim=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
 }
-

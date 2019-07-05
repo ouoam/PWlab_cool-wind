@@ -26,14 +26,14 @@
 /**
  * NexWaveform component.
  */
-class NexWaveform: public NexObject
+class NexWaveform : public NexObject
 {
 public: /* methods */
     /**
      * @copydoc NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name);
      */
     NexWaveform(uint8_t pid, uint8_t cid, const char *name);
-    
+
     /**
      * Add value to show. 
      *
@@ -44,7 +44,7 @@ public: /* methods */
      * @retval false - failed. 
      */
     bool addValue(uint8_t ch, uint8_t number);
-	
+
     /**
      * Get bco attribute of component
      *
@@ -52,7 +52,7 @@ public: /* methods */
      * @return the length of the data 
      */
     uint32_t Get_background_color_bco(uint32_t *number);
-	
+
     /**
      * Set bco attribute of component
      *
@@ -60,14 +60,14 @@ public: /* methods */
      * @return true if success, false for failure
      */
     bool Set_background_color_bco(uint32_t number);
-	
+
     /**
      * Get gdc attribute of component
      *
      * @param number - buffer storing data retur
      * @return the length of the data 
      */
-    uint32_t Get_grid_color_gdc(uint32_t *number);	
+    uint32_t Get_grid_color_gdc(uint32_t *number);
 
     /**
      * Set gdc attribute of component
@@ -75,15 +75,15 @@ public: /* methods */
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_grid_color_gdc(uint32_t number);			
-	
+    bool Set_grid_color_gdc(uint32_t number);
+
     /**
      * Get gdw attribute of component
      *
      * @param number - buffer storing data retur
      * @return the length of the data 
      */
-    uint32_t Get_grid_width_gdw(uint32_t *number);	
+    uint32_t Get_grid_width_gdw(uint32_t *number);
 
     /**
      * Set gdw attribute of component
@@ -91,8 +91,8 @@ public: /* methods */
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_grid_width_gdw(uint32_t number);			
-	
+    bool Set_grid_width_gdw(uint32_t number);
+
     /**
      * Get gdh attribute of component
      *
@@ -107,15 +107,15 @@ public: /* methods */
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_grid_height_gdh(uint32_t number);			
-	
+    bool Set_grid_height_gdh(uint32_t number);
+
     /**
      * Get pco0 attribute of component
      *
      * @param number - buffer storing data retur
      * @return the length of the data 
      */
-    uint32_t Get_channel_0_color_pco0(uint32_t *number);	
+    uint32_t Get_channel_0_color_pco0(uint32_t *number);
 
     /**
      * Set pco0 attribute of component
@@ -123,7 +123,7 @@ public: /* methods */
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_channel_0_color_pco0(uint32_t number);			
+    bool Set_channel_0_color_pco0(uint32_t number);
 };
 
 /**

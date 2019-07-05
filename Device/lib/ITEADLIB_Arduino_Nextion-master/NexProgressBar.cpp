@@ -16,7 +16,7 @@
 #include "NexProgressBar.h"
 
 NexProgressBar::NexProgressBar(uint8_t pid, uint8_t cid, const char *name)
-    :NexObject(pid, cid, name)
+    : NexObject(pid, cid, name)
 {
 }
 
@@ -33,7 +33,7 @@ bool NexProgressBar::setValue(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".val=";
@@ -42,7 +42,7 @@ bool NexProgressBar::setValue(uint32_t number)
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
 }
- 
+
 uint32_t NexProgressBar::Get_background_color_bco(uint32_t *number)
 {
     String cmd;
@@ -57,14 +57,14 @@ bool NexProgressBar::Set_background_color_bco(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".bco=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
-    cmd="";
+
+    cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
@@ -85,16 +85,16 @@ bool NexProgressBar::Set_font_color_pco(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".pco=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
-} 
+}

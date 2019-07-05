@@ -15,7 +15,7 @@
 #include "NexText.h"
 
 NexText::NexText(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+    : NexTouch(pid, cid, name)
 {
 }
 
@@ -26,7 +26,7 @@ uint16_t NexText::getText(char *buffer, uint16_t len)
     cmd += getObjName();
     cmd += ".txt";
     sendCommand(cmd.c_str());
-    return recvRetString(buffer,len);
+    return recvRetString(buffer, len);
 }
 
 bool NexText::setText(const char *buffer)
@@ -37,7 +37,7 @@ bool NexText::setText(const char *buffer)
     cmd += buffer;
     cmd += "\"";
     sendCommand(cmd.c_str());
-    return recvRetCommandFinished();    
+    return recvRetCommandFinished();
 }
 
 uint32_t NexText::Get_background_color_bco(uint32_t *number)
@@ -54,14 +54,14 @@ bool NexText::Set_background_color_bco(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".bco=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
-    cmd="";
+
+    cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
@@ -82,13 +82,13 @@ bool NexText::Set_font_color_pco(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".pco=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -110,13 +110,13 @@ bool NexText::Set_place_xcen(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".xcen=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -138,13 +138,13 @@ bool NexText::Set_place_ycen(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".ycen=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -166,7 +166,7 @@ bool NexText::setFont(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".font=";
@@ -194,13 +194,13 @@ bool NexText::Set_background_crop_picc(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".picc=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -221,7 +221,7 @@ bool NexText::Set_background_image_pic(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".pic=";
@@ -230,7 +230,3 @@ bool NexText::Set_background_image_pic(uint32_t number)
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
 }
-
-
-
-

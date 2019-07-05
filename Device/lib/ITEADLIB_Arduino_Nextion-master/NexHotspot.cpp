@@ -12,11 +12,10 @@
  * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  */
- 
+
 #include "NexHotspot.h"
 
 NexHotspot::NexHotspot(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+    : NexTouch(pid, cid, name)
 {
 }
-

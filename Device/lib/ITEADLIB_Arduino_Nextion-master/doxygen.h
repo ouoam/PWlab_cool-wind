@@ -30,16 +30,15 @@
  * @defgroup Component Nextion Component
  * @brief All components supported. 
  */
- 
+
 /**
  * @defgroup CoreAPI Core API
  * @brief Some essential things. 
  */
-    /**
+/**
      * @ingroup CoreAPI
      * @defgroup TouchEvent Touch Event
      * @brief How to attach(or detach) callback function called when touch event occurs. 
      */
-
 
 #endif /* #ifndef __IOTGO_DOXYGEN_H__ */

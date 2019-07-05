@@ -16,7 +16,7 @@
 
 #ifndef _NEXGPIO_H
 #define _NEXGPIO_H
-     
+
 #include "NexTouch.h"
 #include "NexHardware.h"
 /**
@@ -43,9 +43,9 @@ public:
      * @param control_id - nextion controls id ,when the modeel is 1 to be valid
      * @return true if success, false for failure
      */
-    
-    bool pin_mode(uint32_t port,uint32_t mode,uint32_t control_id);
-    
+
+    bool pin_mode(uint32_t port, uint32_t mode, uint32_t control_id);
+
     /**
      * write a  HIGH or a LOW value to a digital pin
      *
@@ -53,18 +53,18 @@ public:
      * @param value - HIGH or LOW
      * @return true if success, false for failure
      */
-    
-    bool digital_write(uint32_t port,uint32_t value);
-    
+
+    bool digital_write(uint32_t port, uint32_t value);
+
     /**
      * read a HIGH or a LOW value to a digital pin
      *
      * @param port - the gpio port number
      * @return the value from a specified digital pin, either high or low 
      */
-    
+
     uint32_t digital_read(uint32_t port);
-    
+
     /**
      * writes an analog value (PWM wave) to a pin
      *
@@ -72,31 +72,30 @@ public:
      * @param value - the duty cycle: between 0 (always off) and 100 (always on).
      * @return true if success, false for failure
      */
-    
-    bool analog_write(uint32_t port,uint32_t value);
-    
+
+    bool analog_write(uint32_t port, uint32_t value);
+
     /**
      * writes pwm output frequency
      *
      * @param value - the frequency: between 1 and 65535
      * @return true if success, false for failure
      */
-    
+
     bool set_pwmfreq(uint32_t value);
-    
+
     /**
      * read pwm output frequency
      *
      * @param number - the frequency
      * @return true if success, false for failure
      */
-    
+
     uint32_t get_pwmfreq(uint32_t *number);
-     
 };
-    
+
 /**
  * @}
- */    
-    
+ */
+
 #endif /* #ifndef __NEXGPIO_H__ */

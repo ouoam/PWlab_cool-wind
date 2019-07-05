@@ -13,7 +13,7 @@
  * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  */
- 
+
 #ifndef __NEXGAUGE_H__
 #define __NEXGAUGE_H__
 
@@ -27,7 +27,7 @@
 /**
  * NexGauge component.
  */
-class NexGauge: public NexObject
+class NexGauge : public NexObject
 {
 public: /* methods */
     /**
@@ -44,7 +44,7 @@ public: /* methods */
      * @retval false - failed. 
      */
     bool getValue(uint32_t *number);
-    
+
     /**
      * Set the value of gauge. 
      *
@@ -54,7 +54,7 @@ public: /* methods */
      * @retval false - failed. 
      */
     bool setValue(uint32_t number);
-	
+
     /**
      * Get bco attribute of component
      *
@@ -62,7 +62,7 @@ public: /* methods */
      * @return the length of the data 
      */
     uint32_t Get_background_color_bco(uint32_t *number);
-	
+
     /**
      * Set bco attribute of component
      *
@@ -70,14 +70,14 @@ public: /* methods */
      * @return true if success, false for failure
      */
     bool Set_background_color_bco(uint32_t number);
-	
+
     /**
      * Get pco attribute of component
      *
      * @param number - buffer storing data retur
      * @return the length of the data 
      */
-    uint32_t Get_font_color_pco(uint32_t *number);	
+    uint32_t Get_font_color_pco(uint32_t *number);
 
     /**
      * Set pco attribute of component
@@ -85,23 +85,23 @@ public: /* methods */
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_font_color_pco(uint32_t number);	
+    bool Set_font_color_pco(uint32_t number);
 
     /**
      * Get wid attribute of component
      *
      * @param number - buffer storing data retur
      * @return the length of the data 
-     */	
-    uint32_t Get_pointer_thickness_wid(uint32_t *number);		
-	
+     */
+    uint32_t Get_pointer_thickness_wid(uint32_t *number);
+
     /**
      * Set wid attribute of component
      *
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_pointer_thickness_wid(uint32_t number);		
+    bool Set_pointer_thickness_wid(uint32_t number);
 
     /**
      * Get picc attribute of component
@@ -109,15 +109,15 @@ public: /* methods */
      * @param number - buffer storing data retur
      * @return the length of the data 
      */
-    uint32_t Get_background_cropi_picc(uint32_t *number);		
-	
+    uint32_t Get_background_cropi_picc(uint32_t *number);
+
     /**
      * Set picc attribute of component
      *
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_background_crop_picc(uint32_t number);			
+    bool Set_background_crop_picc(uint32_t number);
 };
 
 /**

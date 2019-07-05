@@ -27,7 +27,7 @@
 /**
  * NexHotspot component. 
  */
-class NexHotspot: public NexTouch
+class NexHotspot : public NexTouch
 {
 public: /* methods */
     /**
@@ -38,6 +38,5 @@ public: /* methods */
 /**
  * @}
  */
-
 
 #endif /* #ifndef __NEXHOTSPOT_H__ */

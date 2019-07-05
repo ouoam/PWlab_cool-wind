@@ -16,7 +16,7 @@
 #include "NexGauge.h"
 
 NexGauge::NexGauge(uint8_t pid, uint8_t cid, const char *name)
-    :NexObject(pid, cid, name)
+    : NexObject(pid, cid, name)
 {
 }
 
@@ -33,7 +33,7 @@ bool NexGauge::setValue(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".val=";
@@ -57,14 +57,14 @@ bool NexGauge::Set_background_color_bco(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".bco=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
-    cmd="";
+
+    cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
@@ -85,13 +85,13 @@ bool NexGauge::Set_font_color_pco(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".pco=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -113,13 +113,13 @@ bool NexGauge::Set_pointer_thickness_wid(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".wid=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
@@ -141,18 +141,16 @@ bool NexGauge::Set_background_crop_picc(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
     cmd += getObjName();
     cmd += ".picc=";
     cmd += buf;
     sendCommand(cmd.c_str());
-	
+
     cmd = "";
     cmd += "ref ";
     cmd += getObjName();
     sendCommand(cmd.c_str());
     return recvRetCommandFinished();
 }
-
- 
