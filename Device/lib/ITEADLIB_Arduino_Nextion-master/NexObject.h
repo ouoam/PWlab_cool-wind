@@ -29,10 +29,9 @@
  * them. At least, Page ID(pid), Component ID(pid) and an unique name are needed for
  * creating a component in Nexiton library. 
  */
-class NexObject 
+class NexObject
 {
 public: /* methods */
-
     /**
      * Constructor. 
      *
@@ -43,6 +42,16 @@ public: /* methods */
     NexObject(uint8_t pid, uint8_t cid, const char *name);
 
     /**
+     * Constructor. 
+     *
+     * @param pid - page id. 
+     * @param cid - component id.    
+     * @param name - pointer to an unique name in range of all components. 
+     * @param pageName - pointer to an unique name of page
+     */
+    NexObject(uint8_t pid, uint8_t cid, const char *name, const char *pageName);
+
+    /**
      * Print current object'address, page id, component id and name. 
      *
      * @warning this method does nothing, unless debug message enabled. 
@@ -50,13 +59,12 @@ public: /* methods */
     void printObjInfo(void);
 
 protected: /* methods */
-
     /*
      * Get page id.
      *
      * @return the id of page.  
      */
-    uint8_t getObjPid(void);    
+    uint8_t getObjPid(void);
 
     /*
      * Get component id.
@@ -70,12 +78,20 @@ protected: /* methods */
      *
      * @return the name of component. 
      */
-    const char *getObjName(void);    
-    
-private: /* data */ 
-    uint8_t __pid; /* Page ID */
-    uint8_t __cid; /* Component ID */
+    const char *getObjName(void);
+
+    /*
+     * Get page name.
+     *
+     * @return the name of page that component is in. 
+     */
+    const char *getPageName(void);
+
+private:                /* data */
+    uint8_t __pid;      /* Page ID */
+    uint8_t __cid;      /* Component ID */
     const char *__name; /* An unique name */
+    const char *__pageName;
 };
 /**
  * @}

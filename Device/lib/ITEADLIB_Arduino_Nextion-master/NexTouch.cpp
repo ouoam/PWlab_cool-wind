@@ -14,9 +14,17 @@
  */
 #include "NexTouch.h"
 
-
 NexTouch::NexTouch(uint8_t pid, uint8_t cid, const char *name)
-    :NexObject(pid, cid, name)
+    : NexObject(pid, cid, name)
+{
+    this->__cb_push = NULL;
+    this->__cb_pop = NULL;
+    this->__cbpop_ptr = NULL;
+    this->__cbpush_ptr = NULL;
+}
+
+NexTouch::NexTouch(uint8_t pid, uint8_t cid, const char *name, const char *pageName)
+    : NexObject(pid, cid, name, pageName)
 {
     this->__cb_push = NULL;
     this->__cb_pop = NULL;
@@ -44,7 +52,7 @@ void NexTouch::attachPop(NexTouchEventCb pop, void *ptr)
 
 void NexTouch::detachPop(void)
 {
-    this->__cb_pop = NULL;    
+    this->__cb_pop = NULL;
     this->__cbpop_ptr = NULL;
 }
 
@@ -73,8 +81,8 @@ void NexTouch::iterate(NexTouch **list, uint8_t pid, uint8_t cid, int32_t event)
     {
         return;
     }
-    
-    for(i = 0; (e = list[i]) != NULL; i++)
+
+    for (i = 0; (e = list[i]) != NULL; i++)
     {
         if (e->getObjPid() == pid && e->getObjCid() == cid)
         {
@@ -87,9 +95,8 @@ void NexTouch::iterate(NexTouch **list, uint8_t pid, uint8_t cid, int32_t event)
             {
                 e->pop();
             }
-            
+
             break;
         }
     }
 }
-

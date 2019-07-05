@@ -21,6 +21,11 @@ NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name)
     this->__name = name;
 }
 
+NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name, const char *pageName) : NexObject(pid, cid, name)
+{
+    this->__pageName = pageName;
+}
+
 uint8_t NexObject::getObjPid(void)
 {
     return __pid;
@@ -31,9 +36,14 @@ uint8_t NexObject::getObjCid(void)
     return __cid;
 }
 
-const char* NexObject::getObjName(void)
+const char *NexObject::getObjName(void)
 {
     return __name;
+}
+
+const char *NexObject::getPageName(void)
+{
+    return __pageName;
 }
 
 void NexObject::printObjInfo(void)
@@ -55,4 +65,3 @@ void NexObject::printObjInfo(void)
     }
     dbSerialPrintln("]");
 }
-

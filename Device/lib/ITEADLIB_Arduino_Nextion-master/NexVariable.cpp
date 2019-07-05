@@ -15,13 +15,20 @@
 #include "NexVariable.h"
 
 NexVariable::NexVariable(uint8_t pid, uint8_t cid, const char *name)
-    :NexTouch(pid, cid, name)
+    : NexTouch(pid, cid, name)
+{
+}
+
+NexVariable::NexVariable(uint8_t pid, uint8_t cid, const char *name, const char *pageName)
+    : NexTouch(pid, cid, name, pageName)
 {
 }
 
 uint32_t NexVariable::getValue(uint32_t *number)
 {
     String cmd = String("get ");
+    cmd += getPageName();
+    cmd += ".";
     cmd += getObjName();
     cmd += ".val";
     sendCommand(cmd.c_str());
@@ -32,8 +39,10 @@ bool NexVariable::setValue(uint32_t number)
 {
     char buf[10] = {0};
     String cmd;
-    
+
     utoa(number, buf, 10);
+    cmd += getPageName();
+    cmd += ".";
     cmd += getObjName();
     cmd += ".val=";
     cmd += buf;
@@ -46,19 +55,23 @@ uint32_t NexVariable::getText(char *buffer, uint32_t len)
 {
     String cmd;
     cmd += "get ";
+    cmd += getPageName();
+    cmd += ".";
     cmd += getObjName();
     cmd += ".txt";
     sendCommand(cmd.c_str());
-    return recvRetString(buffer,len);
+    return recvRetString(buffer, len);
 }
 
 bool NexVariable::setText(const char *buffer)
 {
     String cmd;
+    cmd += getPageName();
+    cmd += ".";
     cmd += getObjName();
     cmd += ".txt=\"";
     cmd += buffer;
     cmd += "\"";
     sendCommand(cmd.c_str());
-    return recvRetCommandFinished();    
+    return recvRetCommandFinished();
 }
