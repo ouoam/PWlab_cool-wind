@@ -4,11 +4,7 @@
 #include "display.h"
 #include "io.h"
 
-Temp temp;
-Display display;
-IO io;
-
-uint8_t time = 10;
+unsigned long nextPooling = 0;
 
 void setup()
 {
@@ -20,30 +16,28 @@ void setup()
 
 void loop()
 {
-  String out = "";
-  out += "Temp:";
-  out += temp.getLastTemp();
-
-  int temppp = display.getPreTemp();
-
   temp.loop();
   display.loop();
-  display.setETAtime(temp.getEstimateTimeTo(temppp) / 1000);
-  if (temppp >= temp.getLastTemp())
-  {
-    out += " +";
-    out += temppp;
-    display.setStatus(2);
-    display.setButton(B1);
-  }
-  else
-  {
-    out += " -";
-    out += temppp;
-    if (display.getStatus() != 0 && display.getStatus() != 1)
-      display.setStatus(1);
-    display.setButton(B0);
-  }
 
-  display.setDebug(out);
+  if (nextPooling <= millis())
+  {
+    if (page == 0) {
+      int temppp = display.getPreTemp();
+
+      display.setETAtime(temp.getEstimateTimeTo(temppp) / 1000);
+      if (temppp >= temp.getLastTemp())
+      {
+        display.setStatus(2);
+        display.setButton(B1);
+      }
+      else
+      {
+        if (display.getStatus() != 0 && display.getStatus() != 1)
+          display.setStatus(1);
+        display.setButton(B0);
+      }
+    }
+
+    nextPooling = millis() + 250;
+  }
 }

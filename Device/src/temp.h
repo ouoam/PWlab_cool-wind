@@ -1,3 +1,6 @@
+#ifndef TEMP_h
+#define TEMP_h
+
 #include <Arduino.h>
 
 #include <OneWire.h>
@@ -59,3 +62,7 @@ public:
         // Serial.println(getLastTemp(), 4);
     }
 };
+
+Temp temp;
+
+#endif
