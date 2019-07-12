@@ -74,6 +74,7 @@
           style="height: auto"
           block
           color="success"
+          to="run"
         >START</v-btn>
       </v-flex>
       <v-flex xs6 pb-0>
