@@ -18,6 +18,8 @@ private:
     OneWire oneWireEx  = OneWire(SENSOR_EX_TEMP_PIN);
     DallasTemperature sensorsPre = DallasTemperature(&oneWirePre);
     DallasTemperature sensorsEx  = DallasTemperature(&oneWireEx);
+    DeviceAddress DeviceAddressPre;
+    DeviceAddress DeviceAddressEx;
 
     float tempHistory[MAX_HISTORY];
     float lastExTemp;
@@ -29,8 +31,7 @@ public:
     {
         sensorsPre.setWaitForConversion(false);
         sensorsEx.setWaitForConversion(false);
-        sensorsPre.requestTemperatures();
-        sensorsEx.requestTemperatures();
+        
         nextGetTemp = millis() + 750;
     }
 
@@ -38,6 +39,15 @@ public:
     {
         sensorsPre.begin();
         sensorsEx.begin();
+
+        sensorsPre.getAddress(DeviceAddressPre, 0);
+        sensorsEx.getAddress(DeviceAddressEx, 0);
+
+        sensorsPre.setResolution(DeviceAddressPre, 12);
+        sensorsEx.setResolution(DeviceAddressEx, 12);
+
+        sensorsPre.requestTemperatures();
+        sensorsEx.requestTemperatures();
     }
 
     void loop()
