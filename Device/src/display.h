@@ -161,7 +161,9 @@ public:
                 } else {
                     settingPg.show();
                     page = 0;
+                    io.setSpeed(1);
                     io.setBlow(false);
+                    
                 }
             }
         }
