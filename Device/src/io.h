@@ -3,13 +3,15 @@
 
 #include <Arduino.h>
 
-#define COOL 4
-#define BLOW 5
-#define WATER 6
+#define WATER_PIN   4
 
-#define SPEED1 8
-#define SPEED2 9
-#define SPEED3 10
+#define COOL_PIN    11
+#define BLOW_PIN    12
+#define BUZZER_PIN  13
+
+#define SPEED1  8
+#define SPEED2  9
+#define SPEED3  10
 
 class IO
 {
@@ -17,9 +19,12 @@ private:
 public:
     void setup()
     {
-        pinMode(COOL, OUTPUT);
-        pinMode(BLOW, OUTPUT);
-        pinMode(WATER, INPUT_PULLUP);
+        pinMode(WATER_PIN, INPUT_PULLUP); /* *************** */
+
+        pinMode(COOL_PIN, OUTPUT);
+        pinMode(BLOW_PIN, OUTPUT);
+        pinMode(BUZZER_PIN, OUTPUT);
+        
         pinMode(SPEED1, OUTPUT);
         pinMode(SPEED2, OUTPUT);
         pinMode(SPEED3, OUTPUT);
@@ -27,17 +32,17 @@ public:
 
     void setCool(bool on)
     {
-        digitalWrite(COOL, on);
+        digitalWrite(COOL_PIN, on);
     }
 
     void setBlow(bool on)
     {
-        digitalWrite(BLOW, on);
+        digitalWrite(BLOW_PIN, on);
     }
 
     bool isWater()
     {
-        return digitalRead(WATER);
+        return digitalRead(WATER_PIN);
     }
 
     void setSpeed(uint8_t speed)
