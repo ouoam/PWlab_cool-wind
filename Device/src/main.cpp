@@ -37,6 +37,7 @@ Pin Name    Function    Connect
 #include "temp.h"
 #include "display.h"
 #include "io.h"
+#include "miniDisplay.h"
 
 unsigned long nextPooling = 0;
 
@@ -45,6 +46,7 @@ void setup()
   temp.setup();
   display.setup();
   io.setup();
+  miniDisplay.setup();
   io.setCool(true);
 }
 
@@ -52,6 +54,7 @@ void loop()
 {
   temp.loop();
   display.loop();
+  miniDisplay.loop();
 
   if (nextPooling <= millis())
   {
