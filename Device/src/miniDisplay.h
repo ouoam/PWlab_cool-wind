@@ -14,7 +14,7 @@
 class MINI_DISPLAY
 {
 private:
-    U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2 = U8G2_SH1106_128X64_NONAME_1_HW_I2C(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);;
+    U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2 = U8G2_SH1106_128X64_NONAME_1_HW_I2C(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
     float lastShowTemp = -128;
 public:
     void setup()
@@ -47,9 +47,18 @@ public:
             //  5px + 2px  *
             // 12px + 2px  C
 
+            // Title
+            u8g2.setDrawColor(1);
+            u8g2.drawBox(0, 0, 128, 18);
+            u8g2.setDrawColor(0);
+            u8g2.setFont(u8g2_font_pxplusibmvga9_tr);
+            u8g2.drawStr(4, 14, "EX-TEMP");
+
+            // Value
+            u8g2.setDrawColor(1);
             u8g2.setFont(u8g2_font_logisoso42_tc);
             u8g2.setCursor(0, 63);
-            u8g2.print(neg ? '-': ' ');
+            u8g2.print(neg ? '-' : ' ');
             u8g2.setCursor(12 + (neg ? 8 : 0) + (digit2 == 1 ? 5: 0), 63);
             u8g2.print(digit2 == 0 ? ' ': digit2);
             u8g2.setCursor(37 + (neg ? 8 : 0) + (digit1 == 1 ? 5: 0), 63);
@@ -59,14 +68,12 @@ public:
             u8g2.setCursor(71 + (neg ? 8 : 0) + (point1 == 1 ? 5: 0), 63);
             u8g2.print(point1);
 
+            // Unit
             u8g2.setFont(u8g2_font_logisoso24_tc);
-            u8g2.setCursor(104,63);
+            u8g2.setCursor(104, 63);
             u8g2.print((char)176);
             u8g2.print("C");
-        } while ( u8g2.nextPage() );
-        
-        return;
-
+        } while (u8g2.nextPage());
     }
 };
 
