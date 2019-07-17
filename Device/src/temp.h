@@ -32,7 +32,7 @@ public:
         sensorsPre.setWaitForConversion(false);
         sensorsEx.setWaitForConversion(false);
         
-        nextGetTemp = millis() + 750;
+        nextGetTemp = millis() + 375;
     }
 
     void setup()
@@ -43,8 +43,8 @@ public:
         sensorsPre.getAddress(DeviceAddressPre, 0);
         sensorsEx.getAddress(DeviceAddressEx, 0);
 
-        sensorsPre.setResolution(DeviceAddressPre, 12);
-        sensorsEx.setResolution(DeviceAddressEx, 12);
+        sensorsPre.setResolution(DeviceAddressPre, 11);
+        sensorsEx.setResolution(DeviceAddressEx, 11);
 
         sensorsPre.requestTemperatures();
         sensorsEx.requestTemperatures();
@@ -62,7 +62,7 @@ public:
             lastExTemp = sensorsEx.getTempCByIndex(0);
             sensorsEx.requestTemperatures();
 
-            nextGetTemp = millis() + 750;
+            nextGetTemp += 375;
         }
     }
 
