@@ -6,6 +6,7 @@
 #include "Nextion.h"
 
 #include "io.h"
+#include "temp.h"
 
 uint8_t page;
 uint8_t fanspeed;
@@ -161,6 +162,9 @@ class Display
 {
 private:
     int8_t lastPreTemp = 0;
+    uint8_t lastValStatus = 0;
+    uint8_t lastValButton = 0;
+    int32_t lastETAtime = 0;
 
 public:
     Display(/* args */)
@@ -197,6 +201,23 @@ public:
     void loop()
     {
         nexLoop(nex_listen_list);
+
+        if (page == 0) {
+            int temppp = getPreTemp();
+
+            if (temppp >= temp.getLastTemp())
+            {
+                setStatus(2);
+                setButton(B1);
+            }
+            else
+            {
+                setETAtime(temp.getEstimateTimeTo(temppp) / 1000);
+                if (getStatus() > 1) setStatus(1);
+                setButton(B0);
+            }
+        }
+            
         if (page == 2) {
             if (millis() >= nextChangeTime && ((!isPauseVal && !isDeforceVal) || nextChangeTime == 0)) {
                 unsigned long use = millis() - startTime;
@@ -237,10 +258,10 @@ public:
         return lastPreTemp;
     }
 
-    int8_t getTime()
+    uint8_t getStatus()
     {
         uint32_t number;
-        valTime.getValue(&number);
+        valStatus.getValue(&number);
         return number;
     }
 
@@ -250,29 +271,28 @@ public:
             time = 999;
         else if (time < 0)
             time = 0;
+        if (lastETAtime == time) return;
+        lastETAtime = time;
         valETA.setValue(time);
-    }
-
-    uint8_t getStatus()
-    {
-        uint32_t number;
-        valStatus.getValue(&number);
-        return number;
     }
 
     void setStatus(uint8_t status)
     {
+        if (lastValStatus == status) return;
+        lastValStatus = status;
         valStatus.setValue(status);
     }
 
     void setButton(uint8_t button)
     {
+        if (lastValButton == button) return;
+        lastValButton = button;
         valButton.setValue(button);
     }
 
-    void setDebug(String str)
+    void setDebug(char str[])
     {
-        textDebug.setText(str.c_str());
+        textDebug.setText(str);
     }
 };
 
