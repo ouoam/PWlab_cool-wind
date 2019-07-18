@@ -42,7 +42,7 @@ public:
 
     bool isWater()
     {
-        return digitalRead(WATER_PIN);
+        return !digitalRead(WATER_PIN); // Pullup now
     }
 
     void setSpeed(uint8_t speed)

@@ -10,12 +10,14 @@
 #include "u8g2_font_logisoso24_tc.h"
 
 #include "temp.h"
+#include "io.h"
 
 class MINI_DISPLAY
 {
 private:
     U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2 = U8G2_SH1106_128X64_NONAME_1_HW_I2C(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
     float lastShowTemp = -128;
+    bool lastWaterState = false;
 public:
     void setup()
     {
@@ -24,8 +26,9 @@ public:
 
     void loop()
     {
+        bool nowWaterState = io.isWater();
         float tempC = temp.getLastExTemp();
-        if (lastShowTemp == tempC) return;
+        if (lastShowTemp == tempC && nowWaterState == lastWaterState) return;
         
         lastShowTemp = tempC;
 
@@ -52,7 +55,8 @@ public:
             u8g2.drawBox(0, 0, 128, 18);
             u8g2.setDrawColor(0);
             u8g2.setFont(u8g2_font_pxplusibmvga9_tr);
-            u8g2.drawStr(4, 14, "EX-TEMP");
+            u8g2.drawStr(4, 14, nowWaterState ? "WATER FULL" : "EX-TEMP");
+            lastWaterState = nowWaterState;
 
             // Value
             u8g2.setDrawColor(1);

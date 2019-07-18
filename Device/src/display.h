@@ -201,19 +201,18 @@ public:
     void loop()
     {
         nexLoop(nex_listen_list);
-
         if (page == 0) {
             int temppp = getPreTemp();
 
             if (temppp >= temp.getLastTemp())
             {
-                setStatus(2);
+                setStatus(io.isWater() ? 3 : 2);
                 setButton(B1);
             }
             else
             {
                 setETAtime(temp.getEstimateTimeTo(temppp) / 1000);
-                if (getStatus() > 1) setStatus(1);
+                if (getStatus() > 1) setStatus(io.isWater() ? 3 : 1);
                 setButton(B0);
             }
         }
@@ -245,6 +244,7 @@ public:
                 }
             }
         }
+        if (io.isWater()) setStatus(3);
         
     }
 
