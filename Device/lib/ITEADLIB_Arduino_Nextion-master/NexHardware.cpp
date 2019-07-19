@@ -159,6 +159,8 @@ uint16_t recvRetString(char *buffer, uint16_t len, uint32_t timeout)
     return ret;
 }
 
+NexTouch **nex_listen_list_last;
+
 /*
  * Send command to Nextion.
  *
@@ -166,10 +168,13 @@ uint16_t recvRetString(char *buffer, uint16_t len, uint32_t timeout)
  */
 void sendCommand(const char *cmd)
 {
-    while (nexSerial.available())
-    {
-        nexSerial.read();
-    }
+    // while (nexSerial.available())
+    // {
+    //     nexSerial.read();
+    // }
+
+    if (nex_listen_list_last != nullptr)
+        nexLoop(nex_listen_list_last);
 
     nexSerial.print(cmd);
     nexSerial.write(0xFF);
@@ -259,4 +264,5 @@ void nexLoop(NexTouch *nex_listen_list[])
             }
         }
     }
+    nex_listen_list_last = nex_listen_list;
 }

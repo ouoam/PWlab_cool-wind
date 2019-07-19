@@ -31,18 +31,6 @@ NexPicture startBtn = NexPicture(0, 3, "p2");
 
 NexText textDebug = NexText(0, 18, "textDebug");
 
-void startBtnCallBack(void *ptr)
-{
-    workingPg.show();
-    page = 2;
-    io.setBlow(true);
-    startTime = millis();
-    nextChangeTime = 0;
-    uint32_t timeMin = 0;
-    while (!valTime.getValue(&timeMin));
-    valRemain = timeMin * 60 * 1000;
-}
-
 // ---------- page 2 ----------
 
 NexNumber fanSpeed = NexNumber(2, 5, "fanSpeed");
@@ -58,6 +46,30 @@ NexHotspot hStop = NexHotspot(2, 13, "hStop");
 
 NexVariable isPause = NexVariable(2, 3, "isPause", "working");
 NexVariable isDefrost = NexVariable(2, 4, "isDefrost", "working");
+
+// ---------- callback page 0 ----------
+
+void startBtnCallBack(void *ptr)
+{
+    
+    page = 2;
+    io.setBlow(true);
+    nextChangeTime = 0;
+    
+    isDeforceVal = false;
+    isPauseVal = false;
+    isDefrost.setValue(isDeforceVal);
+    isPause.setValue(isPauseVal);
+
+    uint32_t timeMin = 0;
+    while (!valTime.getValue(&timeMin));
+    valRemain = timeMin * 60 * 1000;
+
+    while (!workingPg.show());
+    startTime = millis();
+}
+
+// ---------- callback page 2 ----------
 
 void timeMinusCallBack(void *ptr)
 {
@@ -146,9 +158,13 @@ void hStopCallBack(void *ptr)
 }
 
 
-NexTouch *nex_listen_list[] =
+NexTouch *nex_listen_list0[] =
     {
         &startBtn,
+        NULL};
+
+NexTouch *nex_listen_list2[] =
+    {
         &timeMinus,
         &timePlus,
         &fanMinus,
@@ -166,6 +182,8 @@ private:
     uint8_t lastValButton = 0;
     int32_t lastETAtime = 0;
 
+    unsigned long nextCheckTime = 0;
+
 public:
     Display(/* args */)
     {
@@ -175,6 +193,13 @@ public:
     void setup()
     {
         nexInit();
+
+        // Change band rate to 512000
+        sendCommand("baud=512000");
+        recvRetCommandFinished();
+        nexSerial.end();
+        nexSerial.begin(512000);
+        sendCommand("");
 
         // ---------- page 0 ----------
         startBtn.attachPush(startBtnCallBack, &startBtn);
@@ -200,24 +225,29 @@ public:
 
     void loop()
     {
-        nexLoop(nex_listen_list);
         if (page == 0) {
-            int temppp = getPreTemp();
+            nexLoop(nex_listen_list0);
+            if (nextChangeTime <= millis()) {
+                int temppp = getPreTemp();
 
-            if (temppp >= temp.getLastTemp())
-            {
-                setStatus(io.isWater() ? 3 : 2);
-                setButton(B1);
-            }
-            else
-            {
-                setETAtime(temp.getEstimateTimeTo(temppp) / 1000);
-                if (getStatus() > 1) setStatus(io.isWater() ? 3 : 1);
-                setButton(B0);
+                if (temppp >= temp.getLastTemp())
+                {
+                    setStatus(io.isWater() ? 3 : 2);
+                    setButton(B1);
+                }
+                else
+                {
+                    setETAtime(temp.getEstimateTimeTo(temppp) / 1000);
+                    if (getStatus() > 1) setStatus(io.isWater() ? 3 : 1);
+                    setButton(B0);
+                }
+                if (io.isWater()) setStatus(3);
+                nextChangeTime = millis() + 200;
             }
         }
             
         if (page == 2) {
+            nexLoop(nex_listen_list2);
             if (millis() >= nextChangeTime && ((!isPauseVal && !isDeforceVal) || nextChangeTime == 0)) {
                 unsigned long use = millis() - startTime;
                 if (isPauseVal || isDeforceVal) use = 0;
@@ -244,8 +274,6 @@ public:
                 }
             }
         }
-        if (io.isWater()) setStatus(3);
-        
     }
 
     int8_t getPreTemp()
