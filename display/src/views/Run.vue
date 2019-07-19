@@ -73,6 +73,7 @@
           class="display-1 px-3 py-2 my-0 font-weight-medium"
           style="height: auto"
           block
+          color="primary"
         >DEFROST</v-btn>
       </v-flex>
 
@@ -82,7 +83,7 @@
           class="display-1 px-3 py-2 my-0 font-weight-medium"
           style="height: auto"
           block
-          color="success"
+          color="amber"
         >RESUME</v-btn>
       </v-flex>
       <v-flex xs6 pt-1 pb-0 pl-2>

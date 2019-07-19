@@ -38,7 +38,7 @@
       </v-flex>
 
       <v-flex xs12 pb-2 pt-3>
-        <v-card style="height: 144px;">
+        <!-- <v-card style="height: 144px;">
           <v-card-title class="pb-0">
             <h2 class="headline font-weight-medium">Status</h2>
           </v-card-title>
@@ -48,15 +48,15 @@
               <br />Remaining 999 sec
             </v-card-text>
           </v-layout>
-        </v-card>
-        <!-- <v-card style="height: 144px;" color="green lighten-1">
+        </v-card>-->
+        <v-card style="height: 144px;">
           <v-card-title class="pb-0">
             <h2 class="headline font-weight-medium">Status</h2>
           </v-card-title>
           <v-layout column justify-space-around style="height: calc(100% - 48px);">
             <v-card-text class="display-1 font-weight-medium px-0">READY</v-card-text>
           </v-layout>
-        </v-card>-->
+        </v-card>
         <!-- <v-card style="height: 144px;" color="red" dark>
           <v-card-title class="pb-0">
             <h2 class="headline font-weight-medium">Status</h2>
