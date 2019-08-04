@@ -55,7 +55,7 @@ public:
             u8g2.drawBox(0, 0, 128, 18);
             u8g2.setDrawColor(0);
             u8g2.setFont(u8g2_font_pxplusibmvga9_tr);
-            u8g2.drawStr(4, 14, nowWaterState ? "WATER FULL" : "EX-TEMP");
+            u8g2.drawStr(4, 14, nowWaterState ? "WATER FULL" : "Discharge-TEMP");
             lastWaterState = nowWaterState;
 
             // Value

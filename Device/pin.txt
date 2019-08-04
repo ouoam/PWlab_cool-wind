@@ -1,0 +1,40 @@
+ 1	PD3	DS18B20 Dischange-temp
+ 2	PD4	Water Full Sensor
+ 3		GND
+ 4		VCC
+ 5		GND
+ 6		VCC
+ 7	PB6
+ 8	PB7
+ 9	PD5
+10	PD6
+11	PD7
+12	PB0	HC138 A
+13	PB1	HC138 B
+14	PB2	HC138 C
+15	PB3	Output
+16	PB4	Blower
+17	PB5	Buzzer
+18		AVCC
+19	ADC6
+20	AREF
+21		GND
+22	ADC7
+23	PC0
+24	PC1
+25	PC2
+26	PC3
+27	PC4	OLED SDA
+28	PC5	OLED SCL
+29	PC6
+30	PD0	Nextion HMI Tx
+31	PD1	Nextion HMI Rx
+32	PD2	DS18B20 pre-temp
+
+
+                _______
+                |     |
+       GND ---- | * * | ---> RST   PC6
+  PB3 MOSI <--- | * *   ---> SCK   PB5
+       VCC ---- | * * | <--- MISO  PB4
+                |_____|
