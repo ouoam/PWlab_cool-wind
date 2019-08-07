@@ -45,14 +45,15 @@ void setup()
   display.setup();
   io.setup();
   miniDisplay.setup();
-
-  io.setCool(true);
+  io.setCool(HIGH);
+  // display.setDebug("V1.1");
 }
 
 bool on = false;
 
 void loop()
 {
+  io.loop();
   temp.loop();
   display.loop();
   miniDisplay.loop();

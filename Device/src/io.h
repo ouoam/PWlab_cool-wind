@@ -17,6 +17,9 @@
 class IO
 {
 private:
+    uint64_t willOffBuzzTime = 0 - 1;
+    uint64_t willOnBuzzTime = 0 - 1;
+    uint8_t round = 0;
 public:
     void setup()
     {
@@ -32,6 +35,24 @@ public:
         pinMode(SPEED3, OUTPUT);
     }
 
+    void loop()
+    {
+        if (millis() >= willOnBuzzTime) {
+            digitalWrite(BUZZER_PIN, HIGH);
+            willOffBuzzTime = millis() + 300;
+            willOnBuzzTime = 0 - 1;
+        }
+        if (millis() >= willOffBuzzTime) {
+            digitalWrite(BUZZER_PIN, LOW);
+            willOffBuzzTime = 0 - 1;
+            if (round > 1) {
+                round--;
+                willOnBuzzTime = millis() + 200;
+            }
+        }
+        
+    }
+
     void setCool(bool on)
     {
         digitalWrite(COOL_PIN, !on);
@@ -42,11 +63,10 @@ public:
         digitalWrite(BLOW_PIN, on);
     }
 
-    void sound()
+    void sound(uint8_t round = 1)
     {
-        digitalWrite(BUZZER_PIN, HIGH);
-        delay(300);
-        digitalWrite(BUZZER_PIN, LOW);
+        willOnBuzzTime = 0;
+        this->round = round;
     }
 
     bool isWater()

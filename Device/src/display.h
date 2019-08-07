@@ -322,7 +322,7 @@ public:
                     page = 0;
                     io.setSpeed(1);
                     io.setBlow(false);
-                    
+                    io.sound(3);
                 }
             }
         }
