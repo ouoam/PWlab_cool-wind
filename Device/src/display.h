@@ -54,6 +54,7 @@ void startBtnCallBack(void *ptr)
     
     page = 2;
     io.setBlow(true);
+    io.setCool(HIGH);
     nextChangeTime = 0;
     
     isDeforceVal = false;
@@ -67,6 +68,7 @@ void startBtnCallBack(void *ptr)
 
     while (!workingPg.show());
     startTime = millis();
+    io.sound();
 }
 
 // ---------- callback page 2 ----------
@@ -77,6 +79,7 @@ void timeMinusCallBack(void *ptr)
         valRemain -= 60ul * 1000;
         nextChangeTime = 0;
     }
+    io.sound();
 }
 
 void timePlusCallBack(void *ptr)
@@ -85,6 +88,7 @@ void timePlusCallBack(void *ptr)
         valRemain += 60ul * 1000;
         nextChangeTime = 0;
     }
+    io.sound();
 }
 
 void fanMinusCallBack(void *ptr)
@@ -94,6 +98,7 @@ void fanMinusCallBack(void *ptr)
         fanspeed = 1;
     fanSpeed.setValue(fanspeed);
     io.setSpeed(fanspeed);
+    io.sound();
 }
 
 void fanPlusCallBack(void *ptr)
@@ -103,6 +108,7 @@ void fanPlusCallBack(void *ptr)
         fanspeed = 8;
     fanSpeed.setValue(fanspeed);
     io.setSpeed(fanspeed);
+    io.sound();
 }
 
 void hDefrostCallBack(void *ptr)
@@ -119,6 +125,7 @@ void hDefrostCallBack(void *ptr)
         if (!isPauseVal) {
             valRemain -= millis() - startTime;
         }
+        io.setCool(LOW);
     } else { // Off deforce
         if (!isPauseVal) {
             io.setBlow(true);
@@ -126,7 +133,9 @@ void hDefrostCallBack(void *ptr)
         } else {
             io.setBlow(false);
         }
+        io.setCool(HIGH);
     }
+    io.sound();
 }
 
 void hPauseCallBack(void *ptr)
@@ -148,6 +157,7 @@ void hPauseCallBack(void *ptr)
             startTime = millis();
         }
     }
+    io.sound();
 }
 
 void hStopCallBack(void *ptr)
@@ -155,6 +165,8 @@ void hStopCallBack(void *ptr)
     settingPg.show();
     page = 0;
     io.setBlow(false);
+    io.setCool(HIGH);
+    io.sound();
 }
 
 
@@ -233,7 +245,7 @@ public:
                 if (temppp >= temp.getLastTemp())
                 {
                     setStatus(io.isWater() ? 3 : 2);
-                    setButton(B1);
+                    setButton(io.isWater()? B0 : B1);
                 }
                 else
                 {
@@ -245,7 +257,7 @@ public:
                 nextChangeTime = millis() + 200;
             }
         }
-            
+
         if (page == 2) {
             nexLoop(nex_listen_list2);
             if (millis() >= nextChangeTime && ((!isPauseVal && !isDeforceVal) || nextChangeTime == 0)) {

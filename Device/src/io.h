@@ -8,6 +8,7 @@
 #define COOL_PIN    11
 #define BLOW_PIN    12
 #define BUZZER_PIN  13
+#define WATERFULL_PIN   PC0
 
 #define SPEED1  8
 #define SPEED2  9
@@ -24,6 +25,7 @@ public:
         pinMode(COOL_PIN, OUTPUT);
         pinMode(BLOW_PIN, OUTPUT);
         pinMode(BUZZER_PIN, OUTPUT);
+        pinMode(WATERFULL_PIN, OUTPUT);
         
         pinMode(SPEED1, OUTPUT);
         pinMode(SPEED2, OUTPUT);
@@ -32,12 +34,19 @@ public:
 
     void setCool(bool on)
     {
-        digitalWrite(COOL_PIN, on);
+        digitalWrite(COOL_PIN, !on);
     }
 
     void setBlow(bool on)
     {
         digitalWrite(BLOW_PIN, on);
+    }
+
+    void sound()
+    {
+        digitalWrite(BUZZER_PIN, HIGH);
+        delay(300);
+        digitalWrite(BUZZER_PIN, LOW);
     }
 
     bool isWater()
@@ -51,6 +60,10 @@ public:
         digitalWrite(SPEED1, speed & B001);
         digitalWrite(SPEED2, speed & B010);
         digitalWrite(SPEED3, speed & B100);
+    }
+
+    void setWaterFullLock(bool on) {
+        digitalWrite(COOL_PIN, on);
     }
 };
 
