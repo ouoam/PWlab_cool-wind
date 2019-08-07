@@ -16,6 +16,8 @@ unsigned long startTime = 0;
 unsigned long nextChangeTime = 0;
 bool isPauseVal = false;
 bool isDeforceVal = false;
+bool isWaterLock = false;
+bool willChangeStatus = false;
 
 NexPage settingPg = NexPage(0, 0, "main");
 NexPage workingPg = NexPage(2, 0, "working");
@@ -59,6 +61,7 @@ void startBtnCallBack(void *ptr)
     
     isDeforceVal = false;
     isPauseVal = false;
+    isWaterLock = false;
     isDefrost.setValue(isDeforceVal);
     isPause.setValue(isPauseVal);
 
@@ -113,27 +116,44 @@ void fanPlusCallBack(void *ptr)
 
 void hDefrostCallBack(void *ptr)
 {
-    isDeforceVal = !isDeforceVal;
-    isDefrost.setValue(isDeforceVal);
-    nextChangeTime = 0;
+    if (!isWaterLock) {
+        isDeforceVal = !isDeforceVal;
+        isDefrost.setValue(isDeforceVal);
+        nextChangeTime = 0;
 
-    if (isDeforceVal) { // On deforce
-        io.setBlow(true);
-        fanspeed = 6;
-        fanSpeed.setValue(fanspeed);
-        io.setSpeed(fanspeed);
-        if (!isPauseVal) {
-            valRemain -= millis() - startTime;
-        }
-        io.setCool(LOW);
-    } else { // Off deforce
-        if (!isPauseVal) {
+        if (isDeforceVal) { // On deforce
             io.setBlow(true);
-            startTime = millis();
-        } else {
-            io.setBlow(false);
+            if (fanspeed < 6) {
+                fanspeed = 6;
+                fanSpeed.setValue(fanspeed);
+                io.setSpeed(fanspeed);
+            }
+            if (!isPauseVal) {
+                valRemain -= millis() - startTime;
+            }
+            io.setCool(LOW);
+        } else { // Off deforce
+            if (!isPauseVal) {
+                io.setBlow(true);
+                startTime = millis();
+            } else {
+                io.setBlow(false);
+            }
+            io.setCool(HIGH);
         }
-        io.setCool(HIGH);
+    } else {
+        if (!io.isWater()) {
+            nextChangeTime = 0;
+            willChangeStatus = true;
+
+            if (!isPauseVal && !isDeforceVal) {
+                io.setBlow(true);
+                startTime = millis();
+            } else {
+                io.setBlow(false);
+            }
+            io.setCool(HIGH);
+        }
     }
     io.sound();
 }
@@ -145,14 +165,16 @@ void hPauseCallBack(void *ptr)
     nextChangeTime = 0;
 
     if (isPauseVal) { // On pause
-        if (!isDeforceVal) {
+        if (!isDeforceVal && !isWaterLock) {
             io.setBlow(false);
             valRemain -= millis() - startTime;
-        } else {
+        } else if (isDeforceVal && !isWaterLock) {
             io.setBlow(true);
+        } else {
+            io.setBlow(false);
         }
     } else { // Off pause
-        if (!isDeforceVal) {
+        if (!isDeforceVal && !isWaterLock) {
             io.setBlow(true);
             startTime = millis();
         }
@@ -260,9 +282,27 @@ public:
 
         if (page == 2) {
             nexLoop(nex_listen_list2);
-            if (millis() >= nextChangeTime && ((!isPauseVal && !isDeforceVal) || nextChangeTime == 0)) {
+            if (io.isWater() && !isWaterLock) {
+                isWaterLock = true;
+                setStatus(3);
+
+                nextChangeTime = 0;
+                io.setBlow(LOW);
+                if (!isPauseVal && !isDeforceVal) {
+                    valRemain -= millis() - startTime;
+                }
+                io.setCool(LOW);
+            }
+
+            if (!io.isWater() && isWaterLock && nextChangeTime == 0 && willChangeStatus) {
+                setStatus(2);
+                isWaterLock = false;
+                willChangeStatus = false;
+            }
+
+            if (millis() >= nextChangeTime && ((!isPauseVal && !isDeforceVal && !isWaterLock) || nextChangeTime == 0)) {
                 unsigned long use = millis() - startTime;
-                if (isPauseVal || isDeforceVal) use = 0;
+                if (isPauseVal || isDeforceVal || isWaterLock) use = 0;
                 long remain = (long)valRemain - (long)use;
                 if (remain > 0) {
                     remain /= 1000;
