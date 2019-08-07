@@ -67,7 +67,7 @@
         </v-card>
       </v-flex>
 
-      <v-flex xs12 py-2>
+      <!-- <v-flex xs12 py-2>
         <v-btn
           large
           class="display-1 px-3 py-2 my-0 font-weight-medium"
@@ -75,6 +75,15 @@
           block
           color="primary"
         >DEFROST</v-btn>
+      </v-flex>-->
+
+      <v-flex xs12 py-2>
+        <v-btn
+          large
+          class="display-1 px-3 py-2 my-0 font-weight-medium"
+          style="height: auto"
+          block
+        >WATER FULL</v-btn>
       </v-flex>
 
       <v-flex xs6 pt-1 pb-0 pr-2>
