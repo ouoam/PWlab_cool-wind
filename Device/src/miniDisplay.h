@@ -64,9 +64,9 @@ public:
             u8g2.setCursor(0, 63);
             u8g2.print(neg ? '-' : ' ');
             u8g2.setCursor(12 + (neg ? 8 : 0) + (digit2 == 1 ? 5: 0), 63);
-            u8g2.print(digit2 == 0 ? ' ': digit2);
+            u8g2.print((char)(digit2 == 0 ? ' ': (digit2 + '0')));
             u8g2.setCursor(37 + (neg ? 8 : 0) + (digit1 == 1 ? 5: 0), 63);
-            u8g2.print(digit1);
+            u8g2.print((char)(digit1 + '0'));
             u8g2.setCursor(62 + (neg ? 8 : 0), 63);
             u8g2.print('.');
             u8g2.setCursor(71 + (neg ? 8 : 0) + (point1 == 1 ? 5: 0), 63);
