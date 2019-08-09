@@ -216,8 +216,6 @@ private:
     uint8_t lastValButton = 0;
     int32_t lastETAtime = 0;
 
-    unsigned long nextCheckTime = 0;
-
 public:
     Display(/* args */)
     {
@@ -370,7 +368,7 @@ public:
         valButton.setValue(button);
     }
 
-    void setDebug(char str[])
+    void setDebug(const char str[])
     {
         textDebug.setText(str);
     }
