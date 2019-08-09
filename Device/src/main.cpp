@@ -41,9 +41,9 @@ Pin Name    Function    Connect
 
 void setup()
 {
+  io.setup();
   temp.setup();
   display.setup();
-  io.setup();
   miniDisplay.setup();
   io.setCool(HIGH);
   // display.setDebug("V1.1");

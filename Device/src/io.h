@@ -26,13 +26,26 @@ public:
         pinMode(WATER_PIN, INPUT_PULLUP); /* *************** */
 
         pinMode(COOL_PIN, OUTPUT);
+        digitalWrite(COOL_PIN, LOW);
+
         pinMode(BLOW_PIN, OUTPUT);
-        pinMode(BUZZER_PIN, OUTPUT);
-        pinMode(WATERFULL_PIN, OUTPUT);
+        digitalWrite(BLOW_PIN, LOW);
         
+        pinMode(BUZZER_PIN, OUTPUT);
+        digitalWrite(BUZZER_PIN, LOW);
+
+        pinMode(WATERFULL_PIN, OUTPUT);
+        digitalWrite(WATERFULL_PIN, LOW);
+        
+        // SPEED CONTROL
         pinMode(SPEED1, OUTPUT);
+        digitalWrite(SPEED1, LOW);
+
         pinMode(SPEED2, OUTPUT);
+        digitalWrite(SPEED2, LOW);
+
         pinMode(SPEED3, OUTPUT);
+        digitalWrite(SPEED3, LOW);
     }
 
     void loop()
