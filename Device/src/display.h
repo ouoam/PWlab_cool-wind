@@ -30,6 +30,7 @@ NexVariable valETA = NexVariable(0, 14, "valETA", "main");
 NexVariable valButton = NexVariable(0, 15, "valButton", "main");
 
 NexPicture startBtn = NexPicture(0, 3, "p2");
+NexHotspot clickStatus = NexHotspot(0, 20, "clickStatus");
 
 NexText textDebug = NexText(0, 18, "textDebug");
 
@@ -74,6 +75,14 @@ void startBtnCallBack(void *ptr)
     while (!workingPg.show());
     startTime = millis();
     io.sound();
+}
+
+void clickStatusCallBack(void *ptr)
+{
+    if (!io.isWater()) {
+        isWaterLock = false;
+        io.setCool(HIGH);
+    }
 }
 
 // ---------- callback page 2 ----------
@@ -199,6 +208,7 @@ void hStopCallBack(void *ptr)
 NexTouch *nex_listen_list0[] =
     {
         &startBtn,
+        &clickStatus,
         NULL};
 
 NexTouch *nex_listen_list2[] =
@@ -239,6 +249,7 @@ public:
 
         // ---------- page 0 ----------
         startBtn.attachPush(startBtnCallBack, &startBtn);
+        clickStatus.attachPush(clickStatusCallBack, &clickStatus);
 
         // ---------- page 1 ----------
 
@@ -268,16 +279,20 @@ public:
 
                 if (temppp >= temp.getLastTemp())
                 {
-                    setStatus(io.isWater() ? 3 : 2);
-                    setButton(io.isWater()? B0 : B1);
+                    setStatus(isWaterLock ? 3 : 2);
+                    setButton(isWaterLock ? B0 : B1);
                 }
                 else
                 {
                     setETAtime(temp.getEstimateTimeTo(temppp) / 1000);
-                    if (getStatus() > 1) setStatus(io.isWater() ? 3 : 1);
+                    if (getStatus() > 1) setStatus(isWaterLock ? 3 : 1);
                     setButton(B0);
                 }
-                if (io.isWater()) setStatus(3);
+                if (io.isWater() && !isWaterLock) {
+                    isWaterLock = true;
+                    io.setCool(LOW);
+                    setStatus(3);
+                }
                 nextChangeTime = millis() + 200;
             }
         }
