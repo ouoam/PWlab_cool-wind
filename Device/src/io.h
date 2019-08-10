@@ -20,6 +20,9 @@ private:
     uint64_t willOffBuzzTime = 0 - 1;
     uint64_t willOnBuzzTime = 0 - 1;
     uint8_t round = 0;
+
+    unsigned long lastWaterFull = 0;
+    bool lastWaterFullStage = false;
 public:
     void setup()
     {
@@ -84,6 +87,23 @@ public:
 
     bool isWater()
     {
+        if (lastWaterFullStage) {
+            lastWaterFullStage = !digitalRead(WATER_PIN);
+
+            if (millis() > lastWaterFull + 200 && lastWaterFull != 0) {
+                return lastWaterFullStage;
+            }
+            return false;
+        } else {
+            lastWaterFullStage = !digitalRead(WATER_PIN);
+
+            if (lastWaterFullStage) {
+                lastWaterFull = millis();
+            } else {
+                lastWaterFull = 0;
+            }
+            return false;
+        }
         return !digitalRead(WATER_PIN); // Pullup now
     }
 
