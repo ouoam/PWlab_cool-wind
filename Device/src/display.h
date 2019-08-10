@@ -8,8 +8,8 @@
 #include "io.h"
 #include "temp.h"
 
-uint8_t page;
-uint8_t fanspeed;
+uint8_t page = 0;
+uint8_t fanspeed = 1;
 
 unsigned long valRemain = 0;
 unsigned long startTime = 0;
@@ -55,8 +55,10 @@ void startBtnCallBack(void *ptr)
 {
     
     page = 2;
+    fanspeed = 1;
     io.setBlow(true);
     io.setCool(HIGH);
+    io.setSpeed(fanspeed);
     nextChangeTime = 0;
     
     isDeforceVal = false;
@@ -186,8 +188,10 @@ void hStopCallBack(void *ptr)
 {
     settingPg.show();
     page = 0;
+    fanspeed = 1;
     io.setBlow(false);
     io.setCool(HIGH);
+    io.setSpeed(fanspeed);
     io.sound();
 }
 
