@@ -46,7 +46,6 @@ void setup()
   display.setup();
   miniDisplay.setup();
   io.setCool(HIGH);
-  // display.setDebug("V1.1");
 }
 
 bool on = false;
